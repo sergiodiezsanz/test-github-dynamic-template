@@ -16,7 +16,7 @@ jobs:
         run: cookiecutter ./cookiecutter-pypackage --no-input project_name=${{ github.event.repository.name }}
       - name: Erase template files
         run: |
-          rm -rf cookiecutter-package
+          rm -rf cookiecutter-pypackage
           rm -rf .github
           rm -rf .gitignore
       - name: Move project contents to root folder
