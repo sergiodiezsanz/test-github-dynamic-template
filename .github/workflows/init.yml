@@ -3,6 +3,7 @@ on: push
 
 jobs:
   init-project:
+    if: ${{ github.repository != 'sergiodiezsanz/test-github-dynamic-template' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,9 +15,7 @@ jobs:
       - name: Run cookiecutter
         run: cookiecutter ./cookiecutter-pypackage --no-input project_name=${{ github.event.repository.name }}
       - name: Erase template files
-        run: |
-          rm -rf cookiecutter-pypackage
-          rm -rf .github
+        run: find . | grep -v "cookiecutter-pypackage" | xargs rm -rf
       - name: Move project contents to root folder
         run: mv ./${{ github.event.repository.name }}/* ./
       - name: Erase project
