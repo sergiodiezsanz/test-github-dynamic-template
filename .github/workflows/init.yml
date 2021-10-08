@@ -1,0 +1,22 @@
+name: Init project
+on:
+  - create
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install cookiecutter
+        run: pip install cookiecutter
+      - name: Run cookiecutter
+        run: cookiecutter ./cookiecutter-pypackage --no-input project_slug=${{ github.event.repository.name }}
+      - name: Erase template files
+        run: rm -rf !("${{ github.event.repository.name }}")
+      - name: Move project contents to root folder
+        run: mv ./${{ github.event.repository.name }}/* ./
+      - name: Commit and push
+        uses: actions-x/commit@v1
