@@ -2,7 +2,7 @@ name: Init project
 on: push
 
 jobs:
-  lint:
+  init-project:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +12,7 @@ jobs:
       - name: Install cookiecutter
         run: pip install cookiecutter
       - name: Run cookiecutter
-        run: cookiecutter ./cookiecutter-pypackage --no-input project_slug=${{ github.event.repository.name }}
+        run: cookiecutter ./cookiecutter-pypackage --no-input project_name=${{ github.event.repository.name }}
       - name: Erase template files
         run: rm -rf !("${{ github.event.repository.name }}")
       - name: Move project contents to root folder
