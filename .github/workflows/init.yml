@@ -1,6 +1,7 @@
 name: Init project
 on:
-  - create
+  project:
+    types: [created]
 
 jobs:
   lint:
