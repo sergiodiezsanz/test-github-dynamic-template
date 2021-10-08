@@ -14,8 +14,13 @@ jobs:
       - name: Run cookiecutter
         run: cookiecutter ./cookiecutter-pypackage --no-input project_name=${{ github.event.repository.name }}
       - name: Erase template files
-        run: rm -rf !("${{ github.event.repository.name }}")
+        run: |
+          rm -rf cookiecutter-pypackage
+          rm -rf .github
       - name: Move project contents to root folder
         run: mv ./${{ github.event.repository.name }}/* ./
+      - name: Erase project
+        run: |
+          rm -rf ${{ github.event.repository.name }}
       - name: Commit and push
         uses: actions-x/commit@v1
