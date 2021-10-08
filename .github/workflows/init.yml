@@ -1,7 +1,5 @@
 name: Init project
-on:
-  project:
-    types: [created]
+on: push
 
 jobs:
   lint:
